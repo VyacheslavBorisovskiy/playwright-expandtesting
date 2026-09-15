@@ -1,6 +1,6 @@
 import { test, expect } from '../../fixtures/baseFixture';
 
-test('User can login',
+test('User can add a note',
   { tag: ['@smoke', '@ui'] },
   async ({ homePage, notesAppPage, loginPage }) => {
     await homePage.open();
@@ -8,6 +8,7 @@ test('User can login',
     await expect(notesAppPage.welcomeText).toBeVisible();
     await notesAppPage.goToLogin();
     await loginPage.login(process.env.TEST_EMAIL!, process.env.TEST_PASSWORD!);
-    await expect(notesAppPage.profileLink).toBeVisible();
-  }
-)
+    await notesAppPage.addNote();
+    await expect(notesAppPage.getNoteTitle('note_home_title2')).toBeVisible();
+  },
+);

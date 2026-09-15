@@ -5,7 +5,30 @@ on:
   pull_request:
     branches: [ main, master ]
 jobs:
-  test:
+  smoke:
+    name: Smoke tests
+    timeout-minutes: 30
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - uses: actions/setup-node@v4
+      with:
+        node-version: lts/*
+    - name: Install dependencies
+      run: npm ci
+    - name: Install Playwright Browsers
+      run: npx playwright install --with-deps
+    - name: Run smoke tests
+      run: npx playwright test --grep @smoke
+    - uses: actions/upload-artifact@v4
+      if: ${{ !cancelled() }}
+      with:
+        name: playwright-report-smoke
+        path: playwright-report/
+        retention-days: 30
+
+  regression:
+    name: Regression tests
     timeout-minutes: 60
     runs-on: ubuntu-latest
     steps:
@@ -17,11 +40,11 @@ jobs:
       run: npm ci
     - name: Install Playwright Browsers
       run: npx playwright install --with-deps
-    - name: Run Playwright tests
-      run: npx playwright test
+    - name: Run regression tests
+      run: npx playwright test --grep @regression
     - uses: actions/upload-artifact@v4
       if: ${{ !cancelled() }}
       with:
-        name: playwright-report
+        name: playwright-report-regression
         path: playwright-report/
         retention-days: 30

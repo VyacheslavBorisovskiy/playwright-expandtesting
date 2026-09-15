@@ -8,7 +8,7 @@ export class LoginPage {
   constructor(private readonly page: Page) {
     this.emailField = page.getByLabel('Email address');
     this.passwordField = page.getByLabel('Password');
-    this.loginButton = page.getByRole('button', { name: 'Login' }); ``
+    this.loginButton = page.getByRole('button', { name: 'Login' });
   }
 
   async login(email: string, password: string) {

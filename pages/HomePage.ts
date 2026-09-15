@@ -5,7 +5,6 @@ export class HomePage {
 
   constructor(private readonly page: Page) {
     this.notesAppLink = page.getByRole("link", { name: 'Notes App | React' });
-
   }
 
   async open() {
