@@ -1,6 +1,6 @@
 import { test, expect } from '../../fixtures/baseFixture';
 
-test('User can add note',
+test('User can add a note',
   { tag: ['@smoke', '@ui'] },
   async ({ homePage, notesAppPage, loginPage }) => {
     await homePage.open();
