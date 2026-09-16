@@ -114,6 +114,11 @@ jobs:
           allure_history: allure-history
           keep_reports: 20
 
+      - name: Fix Allure output ownership
+        run: |
+          sudo chown -R "$(id -u):$(id -g)" allure-report allure-history
+          rm -rf allure-history/.git
+
       - name: Deploy report to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4.1.0
         with:
