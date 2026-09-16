@@ -30,14 +30,14 @@ export default defineConfig({
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
   reporter: [
     ['list'],
-    // [
-    //   'allure-playwright',
-    //   {
-    //     resultsDir: 'allure-results',
-    //     detail: true,
-    //     suiteTitle: true,
-    //   },
-    // ],
+    [
+      'allure-playwright',
+      {
+        resultsDir: 'allure-results',
+        detail: true,
+        suiteTitle: true,
+      },
+    ],
     [
       'html',
       {
