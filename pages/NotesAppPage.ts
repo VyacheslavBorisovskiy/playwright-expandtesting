@@ -38,4 +38,12 @@ export class NotesAppPage {
     return this.page.getByText(title);
   }
 
+  getNoteCard(title: string): Locator {
+    return this.page.getByTestId('note-card').filter({ hasText: title });
+  }
+
+  async reload() {
+    await this.page.reload();
+  }
+
 }
