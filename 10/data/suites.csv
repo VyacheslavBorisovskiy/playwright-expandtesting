@@ -1,0 +1,5 @@
+"DESCRIPTION","DURATION IN MS","NAME","PARENT SUITE","START TIME","STATUS","STOP TIME","SUB SUITE","SUITE","TEST CLASS","TEST METHOD"
+"","5129","User can add a note","chromium","2026-09-18","passed","2026-09-18","","ui/add-note-ui.spec.ts","",""
+"","2945","User can login","chromium","2026-09-18","passed","2026-09-18","","ui/login-ui.spec.ts","",""
+"","1631","Note can be added with API","chromium","2026-09-18","passed","2026-09-18","","api/add-note-api.spec.ts","",""
+"","986","Update profile via API","chromium","2026-09-18","passed","2026-09-18","","api/update-profile.spec.ts","",""
