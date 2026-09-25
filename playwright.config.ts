@@ -38,6 +38,7 @@ export default defineConfig({
         suiteTitle: true,
       },
     ],
+    ['json', { outputFile: 'playwright-json/results.json' }],
     [
       'html',
       {
@@ -52,7 +53,7 @@ export default defineConfig({
     baseURL: process.env.BASE_URL || 'https://practice.expandtesting.com/',
 
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
-    trace: 'on',
+    trace: 'on-first-retry',
     screenshot: 'only-on-failure',
     video: 'retain-on-failure',
     headless: true,

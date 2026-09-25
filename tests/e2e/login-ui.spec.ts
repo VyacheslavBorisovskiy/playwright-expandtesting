@@ -8,6 +8,7 @@ test('User can login',
     await expect(notesAppPage.welcomeText).toBeVisible();
     await notesAppPage.goToLogin();
     await loginPage.login(process.env.TEST_EMAIL!, process.env.TEST_PASSWORD!);
+
     await expect(notesAppPage.profileLink).toBeVisible();
   }
 )

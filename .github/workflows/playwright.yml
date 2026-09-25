@@ -25,6 +25,28 @@ jobs:
           API_URL: ${{ vars.API_URL }}
           TEST_EMAIL: ${{ secrets.TEST_EMAIL }}
           TEST_PASSWORD: ${{ secrets.TEST_PASSWORD }}
+      - name: Report flaky tests
+        if: ${{ !cancelled() }}
+        id: flaky
+        run: node .github/scripts/flaky-report.js playwright-json/results.json smoke
+        env:
+          BASE_URL: ${{ vars.BASE_URL }}
+      - name: Upload flaky test evidence
+        if: ${{ !cancelled() && steps.flaky.outputs.has_flaky == 'true' }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: flaky-artifacts-smoke
+          path: |
+            test-results/
+            flaky-report/
+          retention-days: 30
+      - name: Upload flaky summary data
+        if: ${{ !cancelled() && steps.flaky.outputs.has_flaky == 'true' }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: flaky-report-smoke
+          path: flaky-report/
+          retention-days: 30
       - uses: actions/upload-artifact@v4
         if: ${{ !cancelled() }}
         with:
@@ -58,6 +80,28 @@ jobs:
           API_URL: ${{ vars.API_URL }}
           TEST_EMAIL: ${{ secrets.TEST_EMAIL }}
           TEST_PASSWORD: ${{ secrets.TEST_PASSWORD }}
+      - name: Report flaky tests
+        if: ${{ !cancelled() }}
+        id: flaky
+        run: node .github/scripts/flaky-report.js playwright-json/results.json regression
+        env:
+          BASE_URL: ${{ vars.BASE_URL }}
+      - name: Upload flaky test evidence
+        if: ${{ !cancelled() && steps.flaky.outputs.has_flaky == 'true' }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: flaky-artifacts-regression
+          path: |
+            test-results/
+            flaky-report/
+          retention-days: 30
+      - name: Upload flaky summary data
+        if: ${{ !cancelled() && steps.flaky.outputs.has_flaky == 'true' }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: flaky-report-regression
+          path: flaky-report/
+          retention-days: 30
       - uses: actions/upload-artifact@v4
         if: ${{ !cancelled() }}
         with:
@@ -98,6 +142,14 @@ jobs:
           name: allure-results-regression
           path: allure-results
 
+      - name: Download flaky test data
+        uses: actions/download-artifact@v4
+        continue-on-error: true
+        with:
+          pattern: flaky-report-*
+          merge-multiple: true
+          path: flaky-report
+
       - name: Get Allure history
         uses: actions/checkout@v4
         continue-on-error: true
@@ -112,7 +164,11 @@ jobs:
           gh_pages: gh-pages
           allure_report: allure-report
           allure_history: allure-history
-          keep_reports: 20
+          keep_reports: 30
+
+      - name: Add Allure history of flaky tests to summary
+        continue-on-error: true
+        run: node .github/scripts/flaky-history.js allure-report
 
       - name: Fix Allure output ownership
         run: |
