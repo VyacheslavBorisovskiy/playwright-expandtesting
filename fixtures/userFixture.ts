@@ -9,6 +9,7 @@ type TestUser = {
 
 type UserFixture = {
   testUser: TestUser;
+  authToken: string;
 };
 
 export const test = base.extend<UserFixture>({
@@ -23,24 +24,31 @@ export const test = base.extend<UserFixture>({
     const registerResponse = await request.post(
       `${apiURL}users/register`,
       {
-        data: user,
+        data: user
       }
     );
 
     expect(registerResponse.status()).toBe(201);
 
-    // Get the authentication token
+    await use(user);
+  },
+
+  authToken: async ({ request, testUser }, use) => {
+    const apiURL = process.env.API_URL!;
+
     const loginResponse = await request.post(`${apiURL}users/login`, {
       data: {
-        email: user.email,
-        password: user.password,
+        email: testUser.email,
+        password: testUser.password,
       },
     });
+
+    expect(loginResponse.status()).toBe(200);
 
     const loginResponseBody = await loginResponse.json();
     const token = loginResponseBody.data.token;
 
-    await use(user);
+    await use(token);
 
     const deleteResponse = await request.delete(`${apiURL}users/delete-account`, {
       headers: { 'x-auth-token': token },

@@ -1,4 +1,4 @@
-import { test, expect } from '../../fixtures/baseFixture';
+import { test, expect } from '../../fixtures/pageFixture';
 
 test('date should be properly entered',
   { tag: '@regression' },

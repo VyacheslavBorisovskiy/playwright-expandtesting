@@ -1,4 +1,4 @@
-import { test, expect } from '../../fixtures/baseFixture';
+import { test, expect } from '../../fixtures/pageFixture';
 
 test('User can login with a mocked successful API response',
   { tag: ['@smoke', '@api'] },

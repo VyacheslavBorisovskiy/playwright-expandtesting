@@ -4,14 +4,14 @@ import { LoginPage } from '../pages/LoginPage'
 import { NotesAppPage } from '../pages/NotesAppPage';
 import { WebInputsPage } from '../pages/WebInputsPage';
 
-type Fixtures = {
+type PageFixtures = {
   homePage: HomePage;
   loginPage: LoginPage;
   notesAppPage: NotesAppPage;
   webInputsPage: WebInputsPage;
 };
 
-export const test = base.extend<Fixtures>({
+export const test = base.extend<PageFixtures>({
   page: async ({ page }, use) => {
     await page.route(
       /googlesyndication|doubleclick|adsbygoogle|googletagservices|google-analytics|googletagmanager|pagead2|adtrafficquality/,

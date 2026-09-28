@@ -1,4 +1,4 @@
-import { test, expect } from '../../fixtures/baseFixture';
+import { test, expect } from '../../fixtures/pageFixture';
 
 test('User can add a note (flaky - fixed wait races the create request)',
   { tag: ['@ui', '@flaky'] },

@@ -5,8 +5,8 @@ export class HomePage {
   readonly webInputsLink: Locator;
 
   constructor(private readonly page: Page) {
-    this.notesAppLink = page.getByRole("link", { name: 'Notes App | React' });
-    this.webInputsLink = page.getByRole("link", { name: 'Web inputs' });
+    this.notesAppLink = page.getByRole('link', { name: 'Notes App | React' });
+    this.webInputsLink = page.getByRole('link', { name: 'Web inputs' });
   }
 
   async open() {

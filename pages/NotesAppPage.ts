@@ -1,5 +1,5 @@
 import { Page, Locator } from '@playwright/test';
-import { expect } from '../fixtures/baseFixture';
+import { expect } from '../fixtures/pageFixture';
 
 export class NotesAppPage {
   readonly welcomeText: Locator;
@@ -26,11 +26,11 @@ export class NotesAppPage {
     await this.loginLink.click();
   }
 
-  async addNote() {
+  async addNote(title: string, description: string) {
     await this.addNoteButton.click();
     await expect(this.addNewNoteText).toBeVisible();
-    await this.noteTitleLabel.fill('note_home_title2');
-    await this.noteDescriptionLabel.fill('note_home_descr2');
+    await this.noteTitleLabel.fill(title);
+    await this.noteDescriptionLabel.fill(description);
     await this.noteCreateButton.click();
   }
 

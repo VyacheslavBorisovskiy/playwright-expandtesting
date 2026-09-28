@@ -4,7 +4,7 @@
       "/Users/viacheslavborysovskyi/.nvm/versions/node/v25.8.0/bin/node",
       "/Users/viacheslavborysovskyi/Documents/Programming_Auto/Playwright/playwright-expandtesting/node_modules/.bin/playwright",
       "test",
-      "date-ui.spec.ts"
+      "tests/api/update-profile.spec.ts"
     ],
     "configFile": "/Users/viacheslavborysovskyi/Documents/Programming_Auto/Playwright/playwright-expandtesting/playwright.config.ts",
     "rootDir": "/Users/viacheslavborysovskyi/Documents/Programming_Auto/Playwright/playwright-expandtesting/tests",
@@ -81,13 +81,13 @@
   },
   "suites": [
     {
-      "title": "e2e/date-ui.spec.ts",
-      "file": "e2e/date-ui.spec.ts",
+      "title": "api/update-profile.spec.ts",
+      "file": "api/update-profile.spec.ts",
       "column": 0,
       "line": 0,
       "specs": [
         {
-          "title": "date should be properly entered",
+          "title": "Update profile via API",
           "ok": true,
           "tags": [
             "regression"
@@ -104,12 +104,12 @@
                   "workerIndex": 0,
                   "parallelIndex": 0,
                   "status": "passed",
-                  "duration": 1336,
+                  "duration": 1406,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-09-25T10:41:39.078Z",
+                  "startTime": "2026-09-28T15:06:58.988Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -117,8 +117,8 @@
               "status": "expected"
             }
           ],
-          "id": "870f0ed5311b3f6223e1-2dfade4ac075e565830c",
-          "file": "e2e/date-ui.spec.ts",
+          "id": "2acf7039d7dc79f709e7-142230c73590470b40f4",
+          "file": "api/update-profile.spec.ts",
           "line": 3,
           "column": 5
         }
@@ -127,8 +127,8 @@
   ],
   "errors": [],
   "stats": {
-    "startTime": "2026-09-25T10:41:38.442Z",
-    "duration": 2275.45,
+    "startTime": "2026-09-28T15:06:58.428Z",
+    "duration": 2073.107,
     "expected": 1,
     "skipped": 0,
     "unexpected": 0,
