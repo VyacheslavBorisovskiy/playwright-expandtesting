@@ -1,33 +1,14 @@
-import { test, expect } from '@playwright/test';
-import { randomUUID } from 'crypto';
+import { test, expect } from '../../fixtures/userFixture';
 
 test('Update profile via API',
   { tag: '@regression' },
-  async ({ request }) => {
+  async ({ testUser, authToken, request }) => {
     const apiURL = process.env.API_URL!;
-    const email = `test.${randomUUID()}@example.com`;
-    const password = 'Password123';
-
-    const registerResponse = await request.post(`${apiURL}users/register`, {
-      data: {
-        name: 'Test User',
-        email,
-        password,
-      },
-    });
-    expect(registerResponse.status()).toBe(201);
-
-    const loginResponse = await request.post(`${apiURL}users/login`, {
-      data: { email, password },
-    });
-    expect(loginResponse.status()).toBe(200);
-    const loginBody = await loginResponse.json();
-    const token = loginBody.data.token;
 
     const updateResponse = await request.patch(`${apiURL}users/profile`, {
-      headers: { 'x-auth-token': token },
+      headers: { 'x-auth-token': authToken },
       data: {
-        name: 'Test Name',
+        name: testUser.name,
         phone: '0123456789',
         company: 'Company',
       },
@@ -36,13 +17,9 @@ test('Update profile via API',
 
     const updateBody = await updateResponse.json();
     expect(updateBody.data.id).toBeTruthy();
-    expect(updateBody.data.name).toBe('Test Name');
+    expect(updateBody.data.name).toBe(testUser.name);
     expect(updateBody.data.phone).toBe('0123456789');
     expect(updateBody.data.company).toBe('Company');
 
-    const deleteResponse = await request.delete(`${apiURL}users/delete-account`, {
-      headers: { 'x-auth-token': token },
-    });
-    expect(deleteResponse.status()).toBe(200);
   },
 );
