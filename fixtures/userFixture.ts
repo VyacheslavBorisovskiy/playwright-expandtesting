@@ -51,7 +51,7 @@ export const test = base.extend<UserFixture>({
     await use(token);
 
     const deleteResponse = await request.delete(`${apiURL}users/delete-account`, {
-      headers: { 'x-auth-token': token },
+      headers: { 'Authorization': `Bearer ${token}` },
     });
     expect(deleteResponse.status()).toBe(200);
   },

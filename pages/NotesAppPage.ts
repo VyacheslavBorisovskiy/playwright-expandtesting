@@ -45,5 +45,4 @@ export class NotesAppPage {
   async reload() {
     await this.page.reload();
   }
-
 }
