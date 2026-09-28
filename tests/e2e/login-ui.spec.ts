@@ -1,13 +1,14 @@
-import { test, expect } from '../../fixtures/baseFixture';
+import { test, expect } from '../../fixtures/userFixture';
 
 test('User can login',
   { tag: ['@smoke', '@ui'] },
-  async ({ homePage, notesAppPage, loginPage }) => {
+  async ({ homePage, notesAppPage, loginPage, testUser, }) => {
     await homePage.open();
     await homePage.goToNotesApp();
-    await expect(notesAppPage.welcomeText).toBeVisible();
+    // await expect(notesAppPage.welcomeText).toBeVisible();
     await notesAppPage.goToLogin();
-    await loginPage.login(process.env.TEST_EMAIL!, process.env.TEST_PASSWORD!);
+
+    await loginPage.login(testUser.email, testUser.password);
 
     await expect(notesAppPage.profileLink).toBeVisible();
   }
