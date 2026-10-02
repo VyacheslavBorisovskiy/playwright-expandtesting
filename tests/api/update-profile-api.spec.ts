@@ -1,7 +1,7 @@
 import { test, expect } from '../../fixtures/userFixture';
 
 test('Update profile via API',
-  { tag: '@regression' },
+  { tag: ['@regression', '@flaky'] },
   async ({ testUser, authToken, request }) => {
     const apiURL = process.env.API_URL!;
 

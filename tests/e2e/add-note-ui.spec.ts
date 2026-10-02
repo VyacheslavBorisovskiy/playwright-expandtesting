@@ -1,8 +1,8 @@
 import { test, expect } from '../../fixtures/userFixture';
 
 test('User can add a note',
-  { tag: ['@smoke', '@ui'] },
-  async ({ homePage, notesAppPage, loginPage, testUser, request }) => {
+  { tag: ['@smoke', '@ui', '@flaky'] },
+  async ({ homePage, notesAppPage, loginPage, testUser, authToken, request }) => {
     await homePage.open();
     await homePage.goToNotesApp();
     await expect(notesAppPage.welcomeText).toBeVisible();
@@ -12,19 +12,14 @@ test('User can add a note',
     await notesAppPage.addNote(noteTitle, 'descr');
     await expect(notesAppPage.getNoteTitle(noteTitle)).toBeVisible();
 
-    const loginResponse = await request.post(`${process.env.API_URL}users/login`, {
-      form: { email: testUser.email, password: testUser.password },
-    });
-    const { data: { token } } = await loginResponse.json();
-
     const notesResponse = await request.get(`${process.env.API_URL}notes`, {
-      headers: { 'x-auth-token': token },
+      headers: { 'x-auth-token': authToken },
     });
     const { data: notes } = await notesResponse.json();
     const noteId = notes.find((note: { title: string }) => note.title === noteTitle).id;
 
     await request.delete(`${process.env.API_URL}notes/${noteId}`, {
-      headers: { 'x-auth-token': token },
+      headers: { 'x-auth-token': authToken },
     });
 
     await notesAppPage.reload();

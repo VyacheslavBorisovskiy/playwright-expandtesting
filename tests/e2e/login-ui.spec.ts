@@ -1,8 +1,8 @@
 import { test, expect } from '../../fixtures/userFixture';
 
 test('User can login',
-  { tag: ['@smoke', '@ui'] },
-  async ({ homePage, notesAppPage, loginPage, testUser, }) => {
+  { tag: ['@smoke', '@ui', '@flaky'] },
+  async ({ homePage, notesAppPage, loginPage, testUser }) => {
     await homePage.open();
     await homePage.goToNotesApp();
     // await expect(notesAppPage.welcomeText).toBeVisible();

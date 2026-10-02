@@ -1,7 +1,7 @@
 import { test, expect } from '../../fixtures/userFixture';
 
 test('Note can be added with API',
-  { tag: '@smoke', },
+  { tag: ['@smoke', '@flaky'] },
   async ({ authToken, request }) => {
     const apiURL = process.env.API_URL!;
 
@@ -21,8 +21,6 @@ test('Note can be added with API',
     const notesResponse = await request.get(`${apiURL}notes`, {
       headers: { 'x-auth-token': authToken },
     });
-
-    console.log('token: ' + authToken);
 
     const { data: notes } = await notesResponse.json();
     const noteId = notes.find((note: { title: string }) => note.title === title).id;
