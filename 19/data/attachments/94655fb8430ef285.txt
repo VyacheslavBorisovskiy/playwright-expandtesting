@@ -1,0 +1,17 @@
+Cleanup skipped for test.fe20d5f1-0633-4014-9677-dc2544d3adfd@example.com: Error: Login failed: expected 200, got 401. Body: {"success":false,"status":401,"message":"Incorrect email address or password"}
+    at expectStatus (/home/runner/work/playwright-expandtesting/playwright-expandtesting/fixtures/userFixture.ts:37:11)
+    at login (/home/runner/work/playwright-expandtesting/playwright-expandtesting/fixtures/userFixture.ts:47:3)
+    at Object.testUser [as fn] (/home/runner/work/playwright-expandtesting/playwright-expandtesting/fixtures/userFixture.ts:77:21)
+    at /home/runner/work/playwright-expandtesting/playwright-expandtesting/node_modules/playwright/lib/worker/workerProcessEntry.js:190:9
+    at Fixture._teardownInternal (/home/runner/work/playwright-expandtesting/playwright-expandtesting/node_modules/playwright/lib/worker/workerProcessEntry.js:229:7)
+    at /home/runner/work/playwright-expandtesting/playwright-expandtesting/node_modules/playwright/lib/worker/workerProcessEntry.js:1133:11
+    at TimeoutManager.withRunnable (/home/runner/work/playwright-expandtesting/playwright-expandtesting/node_modules/playwright/lib/worker/workerProcessEntry.js:403:14)
+    at TestInfoImpl._runWithTimeout (/home/runner/work/playwright-expandtesting/playwright-expandtesting/node_modules/playwright/lib/worker/workerProcessEntry.js:1131:7)
+    at TestInfoImpl._runAsStep (/home/runner/work/playwright-expandtesting/playwright-expandtesting/node_modules/playwright/lib/worker/workerProcessEntry.js:1122:7)
+    at Fixture.teardown (/home/runner/work/playwright-expandtesting/playwright-expandtesting/node_modules/playwright/lib/worker/workerProcessEntry.js:209:11)
+    at FixtureRunner.teardownScope (/home/runner/work/playwright-expandtesting/playwright-expandtesting/node_modules/playwright/lib/worker/workerProcessEntry.js:276:9)
+    at /home/runner/work/playwright-expandtesting/playwright-expandtesting/node_modules/playwright/lib/worker/workerProcessEntry.js:1667:9
+    at TestInfoImpl._runAsStep (/home/runner/work/playwright-expandtesting/playwright-expandtesting/node_modules/playwright/lib/worker/workerProcessEntry.js:1122:7)
+    at WorkerMain._runTest (/home/runner/work/playwright-expandtesting/playwright-expandtesting/node_modules/playwright/lib/worker/workerProcessEntry.js:1652:5)
+    at WorkerMain.runTestGroup (/home/runner/work/playwright-expandtesting/playwright-expandtesting/node_modules/playwright/lib/worker/workerProcessEntry.js:1510:9)
+    at process.<anonymous> (/home/runner/work/playwright-expandtesting/playwright-expandtesting/node_modules/playwright/lib/common/index.js:1997:25)
