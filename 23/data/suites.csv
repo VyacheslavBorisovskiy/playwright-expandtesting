@@ -1,0 +1,8 @@
+"DESCRIPTION","DURATION IN MS","NAME","PARENT SUITE","START TIME","STATUS","STOP TIME","SUB SUITE","SUITE","TEST CLASS","TEST METHOD"
+"","2365","User can login with a mocked successful API response","chromium","2026-10-29","passed","2026-10-29","","api/login-api-mock.spec.ts","",""
+"","2361","User cannot login with a mocked failed API response","chromium","2026-10-29","passed","2026-10-29","","api/login-api-mock.spec.ts","",""
+"","2220","every page matched the expected dataset","chromium","2026-10-29","passed","2026-10-29","Student table - row data","e2e/pagination-ui.spec.ts","",""
+"","1831","Note can be added with API","chromium","2026-10-29","passed","2026-10-29","","api/add-note-api.spec.ts","",""
+"","1274","Update profile via API","chromium","2026-10-29","passed","2026-10-29","","api/update-profile-api.spec.ts","",""
+"","2224","User can login","chromium","2026-10-29","passed","2026-10-29","","e2e/login-ui.spec.ts","",""
+"","5801","User can add a note","chromium","2026-10-29","passed","2026-10-29","","e2e/add-note-ui.spec.ts","",""
