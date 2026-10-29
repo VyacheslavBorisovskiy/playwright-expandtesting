@@ -21,7 +21,7 @@ jobs:
         timeout-minutes: 5
         run: npx playwright install --with-deps
       - name: Run smoke tests
-        timeout-minutes: 20
+        timeout-minutes: 15
         run: npx playwright test --grep @smoke
         env:
           BASE_URL: ${{ vars.BASE_URL }}
@@ -80,7 +80,7 @@ jobs:
         timeout-minutes: 5
         run: npx playwright install --with-deps
       - name: Run regression tests
-        timeout-minutes: 50
+        timeout-minutes: 45
         run: npx playwright test --grep @regression
         env:
           BASE_URL: ${{ vars.BASE_URL }}
