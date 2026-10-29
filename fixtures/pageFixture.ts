@@ -3,12 +3,14 @@ import { HomePage } from '../pages/HomePage';
 import { LoginPage } from '../pages/LoginPage'
 import { NotesAppPage } from '../pages/NotesAppPage';
 import { WebInputsPage } from '../pages/WebInputsPage';
+import {TablePaginationPage} from '../pages/TablePaginationPage';
 
 type PageFixtures = {
   homePage: HomePage;
   loginPage: LoginPage;
   notesAppPage: NotesAppPage;
   webInputsPage: WebInputsPage;
+  tablePaginationPage: TablePaginationPage;
 };
 
 export const test = base.extend<PageFixtures>({
@@ -30,6 +32,9 @@ export const test = base.extend<PageFixtures>({
   },
   webInputsPage: async ({ page }, use) => {
     await use(new WebInputsPage(page));
+  },
+  tablePaginationPage: async ({ page }, use) => {
+    await use(new TablePaginationPage(page));
   }
 });
 

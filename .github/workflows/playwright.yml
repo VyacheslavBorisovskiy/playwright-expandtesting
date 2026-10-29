@@ -15,10 +15,13 @@ jobs:
         with:
           node-version: lts/*
       - name: Install dependencies
+        timeout-minutes: 5
         run: npm ci
       - name: Install Playwright Browsers
+        timeout-minutes: 5
         run: npx playwright install --with-deps
       - name: Run smoke tests
+        timeout-minutes: 20
         run: npx playwright test --grep @smoke
         env:
           BASE_URL: ${{ vars.BASE_URL }}
@@ -51,6 +54,7 @@ jobs:
         if: ${{ !cancelled() }}
         with:
           name: playwright-report-smoke
+          timeout-minutes: 5
           path: playwright-report/
           retention-days: 30
       - uses: actions/upload-artifact@v4
@@ -70,10 +74,13 @@ jobs:
         with:
           node-version: lts/*
       - name: Install dependencies
+        timeout-minutes: 5
         run: npm ci
       - name: Install Playwright Browsers
+        timeout-minutes: 5
         run: npx playwright install --with-deps
       - name: Run regression tests
+        timeout-minutes: 50
         run: npx playwright test --grep @regression
         env:
           BASE_URL: ${{ vars.BASE_URL }}
@@ -106,6 +113,7 @@ jobs:
         if: ${{ !cancelled() }}
         with:
           name: playwright-report-regression
+          timeout-minutes: 5
           path: playwright-report/
           retention-days: 30
       - uses: actions/upload-artifact@v4
@@ -120,6 +128,7 @@ jobs:
     needs: [smoke, regression]
     if: ${{ !cancelled() }}
     runs-on: ubuntu-latest
+    timeout-minutes: 15
     permissions:
       contents: write
     steps:
@@ -158,6 +167,7 @@ jobs:
           path: gh-pages
 
       - name: Generate Allure report with history
+        timeout-minutes: 8
         uses: simple-elf/allure-report-action@v1.15
         with:
           allure_results: allure-results
@@ -176,6 +186,7 @@ jobs:
           rm -rf allure-history/.git
 
       - name: Deploy report to GitHub Pages
+        timeout-minutes: 5
         uses: peaceiris/actions-gh-pages@v4.1.0
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}

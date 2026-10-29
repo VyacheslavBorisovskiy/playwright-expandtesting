@@ -2,6 +2,8 @@ import { defineConfig, devices } from '@playwright/test';
 import dotenv from 'dotenv';
 import path from 'path';
 
+// Tests to cover - https://chatgpt.com/c/6accf337-9e90-83eb-85b7-24b91e41ebc2
+
 /**
  * Read environment variables from file.
  * https://github.com/motdotla/dotenv
@@ -17,6 +19,8 @@ dotenv.config({
  * See https://playwright.dev/docs/test-configuration.
  */
 export default defineConfig({
+  timeout: 30_000,              // per test
+  globalTimeout: 45 * 60_000,   // 15 min: graceful stop
   testDir: './tests',
   /* Run tests in files in parallel */
   fullyParallel: true,
