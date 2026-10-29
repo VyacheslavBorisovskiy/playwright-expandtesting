@@ -123,80 +123,79 @@ jobs:
           path: allure-results/
           retention-days: 30
 
-    allure-report:
-      name: Publish Allure report
-      needs: [smoke, regression]
-      if: ${{ !cancelled() }}
-      runs-on: ubuntu-latest
-      timeout-minutes: 15
+  allure-report:
+    name: Publish Allure report
+    needs: [smoke, regression]
+    if: ${{ !cancelled() }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
 
-      permissions:
+    permissions:
       contents: write
 
-      concurrency:
+    concurrency:
       group: allure-report-deployment
       cancel-in-progress: false
 
-      steps:
-        - uses: actions/checkout@v4
+    steps:
+      - uses: actions/checkout@v4
+      - name: Download smoke Allure results
+        uses: actions/download-artifact@v4
+        continue-on-error: true
+        with:
+          name: allure-results-smoke
+          path: allure-results
 
-        - name: Download smoke Allure results
-          uses: actions/download-artifact@v4
-          continue-on-error: true
-          with:
-            name: allure-results-smoke
-            path: allure-results
+      - name: Download regression Allure results
+        uses: actions/download-artifact@v4
+        continue-on-error: true
+        with:
+          name: allure-results-regression
+          path: allure-results
 
-        - name: Download regression Allure results
-          uses: actions/download-artifact@v4
-          continue-on-error: true
-          with:
-            name: allure-results-regression
-            path: allure-results
+      - name: Verify Allure results
+        run: |
+          mkdir -p allure-results
+          echo "Allure result file count:"
+          find allure-results -maxdepth 1 -type f | wc -l
+          echo "Result file samples:"
+          find allure-results -maxdepth 1 -type f | head -20
 
-        - name: Verify Allure results
-          run: |
-            mkdir -p allure-results
-            echo "Allure result file count:"
-            find allure-results -maxdepth 1 -type f | wc -l
-            echo "Result file samples:"
-            find allure-results -maxdepth 1 -type f | head -20
+      - name: Get previous Allure history
+        uses: actions/checkout@v4
+        if: always()
+        continue-on-error: true
+        with:
+          ref: gh-pages
+          path: gh-pages
 
-        - name: Get previous Allure history
-          uses: actions/checkout@v4
-          if: always()
-          continue-on-error: true
-          with:
-            ref: gh-pages
-            path: gh-pages
+      - name: Generate Allure report with history
+        uses: step-security/allure-report-action@v1
+        if: always()
+        with:
+          allure_results: allure-results
+          gh_pages: gh-pages
+          allure_report: allure-report
+          allure_history: allure-history
+          keep_reports: 30
 
-        - name: Generate Allure report with history
-          uses: step-security/allure-report-action@v1
-          if: always()
-          with:
-            allure_results: allure-results
-            gh_pages: gh-pages
-            allure_report: allure-report
-            allure_history: allure-history
-            keep_reports: 30
+      - name: Verify generated history
+        run: |
+          echo "Generated history files:"
+          find allure-report/history -maxdepth 1 -type f 2>/dev/null || true
+          echo "Published report files:"
+          find allure-history -maxdepth 2 -type f | head -30
 
-        - name: Verify generated history
-          run: |
-            echo "Generated history files:"
-            find allure-report/history -maxdepth 1 -type f 2>/dev/null || true
-            echo "Published report files:"
-            find allure-history -maxdepth 2 -type f | head -30
+      - name: Deploy Allure report
+        if: always() && github.event_name == 'push'
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_branch: gh-pages
+          publish_dir: allure-history
 
-        - name: Deploy Allure report
-          if: always() && github.event_name == 'push'
-          uses: peaceiris/actions-gh-pages@v4
-          with:
-            github_token: ${{ secrets.GITHUB_TOKEN }}
-            publish_branch: gh-pages
-            publish_dir: allure-history
-
-        - name: Print report URL
-          if: always()
-          run: |
-            echo "### Allure report" >> "$GITHUB_STEP_SUMMARY"
-            echo "https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}/" >> "$GITHUB_STEP_SUMMARY"
+      - name: Print report URL
+        if: always()
+        run: |
+          echo "### Allure report" >> "$GITHUB_STEP_SUMMARY"
+          echo "https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}/" >> "$GITHUB_STEP_SUMMARY"
